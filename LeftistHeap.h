@@ -2,14 +2,29 @@
 #define _LeftistHeap_H_
 #define ElementType int
 
-struct TreeNode;
-typedef struct TreeNode *LeftistHeap;
+class LeftistHeapNode
+{
+public:
+    ElementType Element;
+    LeftistHeapNode* Left;
+    LeftistHeapNode* Right;
+    int Npl;
+};
 
-LeftistHeap Merge(LeftistHeap H1, LeftistHeap H2);
-static LeftistHeap Merge1(LeftistHeap H1, LeftistHeap H2);
-static void SwapChildren(LeftistHeap H);
-LeftistHeap Insert(ElementType X, LeftistHeap H);
-LeftistHeap DeleteMin(LeftistHeap H);
-ElementType FindMin(LeftistHeap H);
+class LeftistHeap
+{
+private:
+    LeftistHeapNode* root;
+public:
+    LeftistHeap();
+    void merge(LeftistHeap* H);
+    void Insert(ElementType X);
+    ElementType DeleteMin();
+private:
+    LeftistHeapNode* merge(LeftistHeapNode* H1, LeftistHeapNode* H2);
+    LeftistHeapNode* merge1(LeftistHeapNode* H1, LeftistHeapNode* H2);
+    LeftistHeapNode* Insert(LeftistHeapNode* H, ElementType X);
+    LeftistHeapNode* DeleteMin(LeftistHeapNode* H);
+};
 
 #endif
