@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include <queue>
 
 #include "../include/LeftistHeap.h"
 
@@ -83,4 +84,28 @@ LeftistHeapNode* LeftistHeap::DeleteMin(LeftistHeapNode* H)
 	RightHeap = H->Right;
 	free(H);
 	return merge(LeftHeap, RightHeap);
+}
+
+void LeftistHeap::MakeEmpty()
+{
+	queue<LeftistHeapNode*> head;
+	head.push(root);
+	LeftistHeapNode* tmp;
+	while (head.empty() == false)
+	{
+		tmp = head.front();
+		head.pop();
+		if (tmp != NULL)
+		{
+			if (tmp->Left != NULL)
+			{
+				head.push(tmp->Left);
+			}
+			if (tmp->Right != NULL)
+			{
+				head.push(tmp->Right);
+			}
+		}
+		delete tmp;
+	}
 }
