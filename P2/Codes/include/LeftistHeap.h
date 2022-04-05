@@ -15,6 +15,7 @@ class LeftistHeap
 {
 private:
     LeftistHeapNode* root;
+    int Size;
 public:
     LeftistHeap();
     void merge(LeftistHeap* H);
