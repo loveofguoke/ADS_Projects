@@ -14,6 +14,7 @@ LeftistHeap::LeftistHeap()
 {
 	root = (LeftistHeapNode *)malloc(sizeof(LeftistHeapNode));
 	root = NULL;
+	Size = 0;
 }
 
 void LeftistHeap::merge(LeftistHeap* H)
@@ -24,12 +25,14 @@ void LeftistHeap::merge(LeftistHeap* H)
 void LeftistHeap::Insert(ElementType X)
 {
 	root = Insert(root, X);
+	++ Size;
 }
 
 ElementType LeftistHeap::DeleteMin()
 {
 	ElementType temp = root->Element;
 	root = DeleteMin(root);
+	-- Size;
 	return temp;
 }
 
