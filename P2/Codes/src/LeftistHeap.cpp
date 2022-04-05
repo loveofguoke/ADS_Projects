@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "LeftistHeap.h"
+#include "../include/LeftistHeap.h"
 
 using namespace std;
 

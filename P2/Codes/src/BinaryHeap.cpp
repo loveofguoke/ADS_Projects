@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#include "BinaryHeap.h"
+#include "../include/BinaryHeap.h"
 
 using namespace std;
 
