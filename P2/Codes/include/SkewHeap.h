@@ -1,5 +1,6 @@
 #pragma once
-#define ElementType int
+
+#include "HeapElement.h"
 struct SkewHeapNode
 {
 	ElementType Element;
@@ -9,19 +10,22 @@ struct SkewHeapNode
 struct SkewHeapRoot
 {
 	SkewHeapNode* root;
+	
 };
 
 class SkewHeap
 {
 public:
 	SkewHeapRoot Root;
+	int Size;
 public:
 	SkewHeap()
 	{
 		Root.root = NULL;
+		this->Size = 0;
 	}
 	void Insert(ElementType Element);
-	int DeleteMin();
+	ElementType DeleteMin();
 	void MergeHeap(SkewHeap* OtherHeap);
 	void PrintInOrder(SkewHeapNode* H);
 	void PrintLevelOrder();

@@ -1,6 +1,6 @@
 #pragma once
-#define MaxTrees 100000
-#define ElementType int
+#define MaxTrees 100
+#include "HeapElement.h"
 struct BinNode
 {
 	ElementType Element;
@@ -11,8 +11,8 @@ struct BinNode
 class Collection
 {
 public:
-	int CurrentSize;
 	int Capacity;
+	int CurrentSize;
 	BinNode** TheTrees;
 public:
 	Collection()
@@ -29,15 +29,17 @@ class BinomialHeap
 {
 public:
 	Collection H;
-public:
+	int Size;
 	BinomialHeap()
 	{
+		Size = 0;
 		H.CurrentSize = 0;
 		H.Capacity = MaxTrees;
 		H.TheTrees = NULL;
 	}
 	BinomialHeap(int Capacity)
 	{
+		Size = 0;
 		H.CurrentSize = 0;
 		H.Capacity = Capacity;
 		H.TheTrees = new BinNode * [Capacity];
@@ -46,14 +48,13 @@ public:
 			H.TheTrees[i] = NULL;
 		}
 	}
-	void DecreaseKey(BinNode* Node, int val);
 	void initialize(int Capacity);
 	void Insert(ElementType Number);
 	void Merge(BinQueue H2);
 	ElementType DeleteMin();
+	void MakeEmpty();
 
 };
 
 BinQueue Merge1(BinQueue H1, BinQueue H2);
 bool IsEmpty(BinQueue H);
-void MakeEmpty(BinomialHeap& Heap);

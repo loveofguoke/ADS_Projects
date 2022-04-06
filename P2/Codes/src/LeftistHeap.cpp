@@ -5,6 +5,7 @@
 
 #include "../include/LeftistHeap.h"
 
+
 using namespace std;
 
 class LeftistHeapNode;
@@ -12,8 +13,8 @@ class LeftistHeap;
 
 LeftistHeap::LeftistHeap()
 {
-	root = (LeftistHeapNode *)malloc(sizeof(LeftistHeapNode));
 	root = NULL;
+	Size = 0;
 }
 
 void LeftistHeap::merge(LeftistHeap* H)
@@ -24,12 +25,14 @@ void LeftistHeap::merge(LeftistHeap* H)
 void LeftistHeap::Insert(ElementType X)
 {
 	root = Insert(root, X);
+	++Size;
 }
 
 ElementType LeftistHeap::DeleteMin()
 {
 	ElementType temp = root->Element;
 	root = DeleteMin(root);
+	--Size;
 	return temp;
 }
 
@@ -46,7 +49,7 @@ LeftistHeapNode* LeftistHeap::merge1(LeftistHeapNode* H1, LeftistHeapNode* H2)
 	if(H1->Left == NULL) H1->Left = H2;
 	else{
 		H1->Right = merge(H1->Right, H2);
-		if(H1->Left->Npl > H2->Left->Npl){
+		if(H1->Left->Npl < H1->Right->Npl){
 			LeftistHeapNode* temp = H1->Left;
 			H1->Left = H1->Right;
 			H1->Right = temp;
@@ -82,7 +85,7 @@ LeftistHeapNode* LeftistHeap::DeleteMin(LeftistHeapNode* H)
 	LeftistHeapNode* LeftHeap,* RightHeap;
 	LeftHeap = H->Left;
 	RightHeap = H->Right;
-	free(H);
+	delete H;
 	return merge(LeftHeap, RightHeap);
 }
 
@@ -108,4 +111,5 @@ void LeftistHeap::MakeEmpty()
 		}
 		delete tmp;
 	}
+	Size = 0;
 }

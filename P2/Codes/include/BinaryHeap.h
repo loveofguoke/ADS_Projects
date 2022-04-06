@@ -1,25 +1,20 @@
 #ifndef _BinaryHeap_H_
 #define _BinaryHeap_H_
 
-#define ElementType int
-
-#define MaxN 10000000
 #define MinData -1
-
+#include "HeapElement.h"
 class BinaryHeap
 {
-private:
+public:
     int Capacity;
     int Size;
     ElementType *Elements;
-public:
-    BinaryHeap();
+
+    BinaryHeap(int Capicity);
     int IsEmpty();
-    int IsFull();
     void MakeEmpty();
     void Insert(ElementType X);
     ElementType DeleteMin();
-    ElementType FindMin();
 };
 
 #endif

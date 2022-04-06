@@ -1,7 +1,7 @@
 VPATH := ../include
 CC := g++
-OBJS := main.o AvlTree.o BST.o RedBlackTree.o SplayTree.o
-INCLUDEFILE := AvlTree.h BST.h RedBlackTree.h SplayTree.h
+OBJS := main.o BinaryHeap.o BinomialHeap.o FibHeap.o LeftistHeap.o SkewHeap.o Dijkstra.o
+INCLUDEFILE :=  BinaryHeap.h BinomialHeap.h FibHeap.h LeftistHeap.h SkewHeap.h Dijkstra.h HeapElement.h
 OUTDIR := ../out
 
 test: $(OBJS)
@@ -10,17 +10,26 @@ test: $(OBJS)
 main.o :main.cpp $(INCLUDEFILE)
 	$(CC) -c main.cpp 
 
-AvlTree.o: AvlTree.c AvlTree.h 
-	$(CC) -c AvlTree.c
+BinaryHeap.o: BinaryHeap.cpp BinaryHeap.h 
+	$(CC) -c BinaryHeap.cpp
 
-BST.o: BST.c BST.h
-	$(CC) -c BST.c
+BinomialHeap.o: BinomialHeap.cpp BinomialHeap.h
+	$(CC) -c BinomialHeap.cpp
 
-RedBlackTree.o: RedBlackTree.c RedBlackTree.h 
-	$(CC) -c RedBlackTree.c
+FibHeap.o: FibHeap.cpp FibHeap.h 
+	$(CC) -c FibHeap.cpp
 
-SplayTree.o: SplayTree.c SplayTree.h
-	$(CC) -c SplayTree.c
+LeftistHeap.o: LeftistHeap.cpp LeftistHeap.h
+	$(CC) -c LeftistHeap.cpp
+
+SkewHeap.o: SkewHeap.cpp SkewHeap.h
+	$(CC) -c SkewHeap.cpp
+
+Dijkstra.o: Dijkstra.cpp Dijkstra.h
+	$(CC) -c Dijkstra.cpp
 
 clean:
 	del $(OBJS)
+
+delete:
+	del *.exe

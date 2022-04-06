@@ -1,14 +1,15 @@
 #include<iostream>
 #include<fstream>
 #include <sstream>
-#include"../include/BinomialHeap1.h"
+#include"../include/BinomialHeap.h"
+
 using namespace std;
 
-void MakeEmpty(BinomialHeap & Heap)
+void BinomialHeap::MakeEmpty()
 {
-	while (Heap.H.CurrentSize != 0)
+	for (int i = 0; i < H.Capacity; i++)
 	{
-		Heap.DeleteMin();
+		free(H.TheTrees[i]);
 	}
 }
 void BinomialHeap::initialize(int Capacity)
@@ -44,20 +45,23 @@ BinTree CombineTrees(BinTree T1, BinTree T2)
 void BinomialHeap:: Insert(ElementType Number)
 {
 	BinomialHeap* NewHeap = new BinomialHeap(1);
-	//Make a one node heap
+	//Create a one node heap
 	NewHeap->H.Capacity = 1;
 	NewHeap->H.CurrentSize = 1;
-	//Make A Node
+	NewHeap->Size = 1;
+	//Create A Node
 	BinNode* NewNode = new BinNode;
 	NewNode->Element = Number;
 	NewNode->Left = NewNode->NextSibbling = NULL;
 
 	NewHeap->H.TheTrees = new BinNode*;
 	NewHeap->H.TheTrees[0] = NewNode;
+	this->Size++;
 	H=*(Merge1(&H,&(NewHeap->H)));
 }
 void BinomialHeap::Merge(BinQueue H2)
 {
+	this->Size+=H2->CurrentSize;
 	H = *(Merge1(&H, H2));
 }
 BinQueue Merge1(BinQueue H1,BinQueue H2)
@@ -125,8 +129,13 @@ ElementType BinomialHeap::DeleteMin()
 {
 	BinQueue DeletedQueue;
 	Position DeletedTree, OldRoot;
-	int MinItem = MaxTrees;
+	//initialized MinItem
+	ElementType MinItem;
+	MinItem.distance = INT_MAX;
+	MinItem.vertex = -1;
+	//Deleted one node from Heap , the size of heap decremented.
 	int i, j, MinTree;
+	this->Size--;
 	if (IsEmpty(&H))
 	{
 		cout << "Priority Queue is Empty" << endl;
@@ -161,71 +170,50 @@ ElementType BinomialHeap::DeleteMin()
 	H = *(Merge1(&H,DeletedQueue));
 	return MinItem;
 }
-int read(string FileName)
-{
+//int read(string FileName)
+//{
+//
+//	std::ifstream fin;
+//	int cnt = 0;
+//	fin.open(FileName, std::ios::in);
+//	if (!fin)
+//	{
+//		cout << "é”Ÿæ–¤æ‹·å¤±é”Ÿæ–¤æ‹·" << endl;
+//		return false;
+//	}
+//	char line[1024] = { 0 };
+//	while (fin.getline(line, sizeof(line)))
+//	{
+//		string TextContent = line;
+//		////é”Ÿæ–¤æ‹·å–ä¸€é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+//		std::stringstream word(line);
+//		int Distance;
+//		word >> Distance;	
+//		cnt++;
+//		cout << TextContent << endl;
+//	}
+//	return cnt;
+//}
 
-	std::ifstream fin;
-	int cnt = 0;
-	fin.open(FileName, std::ios::in);
-	if (!fin)
-	{
-		cout << "´ò¿ªÊ§°Ü" << endl;
-		return false;
-	}
-	char line[1024] = { 0 };
-	while (fin.getline(line, sizeof(line)))
-	{
-		string TextContent = line;
-		////¶ÁÈ¡Ò»ÕûÐÐÊäÈëÁ÷
-		std::stringstream word(line);
-		int Distance;
-		word >> Distance;	
-		cnt++;
-		cout << TextContent << endl;
-	}
-	return cnt;
-}
-void  read(string FileName,BinomialHeap& H1)
-{
-	std::ifstream fin;
-	int cnt = 0;
-	fin.open(FileName, std::ios::in);
-	if (!fin)
-	{
-		cout << "´ò¿ªÊ§°Ü" << endl;
-	}
-	char line[1024] = { 0 };
-	while (fin.getline(line, sizeof(line)))
-	{
-		string TextContent = line;
-		////¶ÁÈ¡Ò»ÕûÐÐÊäÈëÁ÷
-		std::stringstream word(line);
-		int Distance;
-		word >> Distance;
-		H1.Insert(Distance);
-		cout << TextContent << endl;
-	}
 
-}
-
-int main()
-{
-	cout << "Give File full path" << endl;
-	cout << "such as D:\\data.txt " << endl;
-	string FileName;
-	cin >> FileName;
-	int n;
-	n = read(FileName);
-	BinomialHeap H(MaxTrees);
-	read(FileName, H);
-	
-	for (int i = 0; i < n; i++)
-	{
-		int tmp;
-		tmp = H.DeleteMin();
-		cout << tmp << endl;
-	}
-	
-	MakeEmpty(H);
-
-}
+//int main()
+//{
+//	cout << "Give File full path" << endl;
+//	cout << "such as D:\\data.txt " << endl;
+//	string FileName;
+//	cin >> FileName;
+//	int n;
+//	n = read(FileName);
+//	BinomialHeap H(MaxTrees);
+//	read(FileName, H);
+//	
+//	for (int i = 0; i < n; i++)
+//	{
+//		int tmp;
+//		tmp = H.DeleteMin();
+//		cout << tmp << endl;
+//	}
+//	
+//	MakeEmpty(H);
+//
+//}

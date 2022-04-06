@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include"../include/SkewHeap.h"
+
 #include<queue>
 using namespace std;
 void SkewHeap::MergeHeap(SkewHeap* OtherHeap)
@@ -29,7 +30,6 @@ void SkewHeap::MakeEmpty()
 		}
 		delete tmp;
 	}
-
 
 }
 void SkewHeap::PrintInOrder(SkewHeapNode* H)
@@ -109,7 +109,10 @@ void SkewHeap::Insert(ElementType Element)
 	NewNode->Element = Element;
 	NewNode->Left = NULL;
 	NewNode->Right = NULL;
+
 	//Merge with the Heap
+	//Change the Size
+	this->Size++;
 	Root.root = Merge(Root.root, NewNode);
 }
 ElementType SkewHeap::DeleteMin()
@@ -118,11 +121,13 @@ ElementType SkewHeap::DeleteMin()
 	//Save the LeftChild and RightChild Of the tree
 	SkewHeapNode* LeftChild = Root.root->Left;
 	SkewHeapNode* RightChild = Root.root->Right;
+	if(this->Size>0)this->Size--;
 	//if heap only has Single node
 	if (LeftChild == NULL && RightChild == NULL)
 	{
-		Element = Root.root->Element;
+		Element = Root.root->Element;	
 		delete Root.root;
+		Root.root = NULL;
 	}
 	else
 	{

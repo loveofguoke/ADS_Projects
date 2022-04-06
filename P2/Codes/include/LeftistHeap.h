@@ -1,7 +1,7 @@
 #ifndef _LeftistHeap_H_
 #define _LeftistHeap_H_
-#define ElementType HeapElement
 
+#include "HeapElement.h"
 class LeftistHeapNode
 {
 public:
@@ -9,25 +9,21 @@ public:
     LeftistHeapNode* Left;
     LeftistHeapNode* Right;
     int Npl;
+
 };
 
 class LeftistHeap
 {
-private:
-    LeftistHeapNode* root;
 public:
+    LeftistHeapNode* root;
+    int Size;
+
     LeftistHeap();
     void merge(LeftistHeap* H);
     void Insert(ElementType X);
     ElementType DeleteMin();
     void MakeEmpty();
 
-    bool operator< (ElementType& a){
-        return this->distance < a.distance;
-    }
-    bool operator> (ElementType& a){
-        return this->distance > a.distance;
-    }
 private:
     LeftistHeapNode* merge(LeftistHeapNode* H1, LeftistHeapNode* H2);
     LeftistHeapNode* merge1(LeftistHeapNode* H1, LeftistHeapNode* H2);
