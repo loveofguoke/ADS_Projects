@@ -20,7 +20,7 @@ public:
 
     LeftistHeap();
     void merge(LeftistHeap* H);
-    void Insert(ElementType X);
+    LeftistHeapNode* Insert(ElementType X);
     ElementType DeleteMin();
     void MakeEmpty();
 
